@@ -6,7 +6,14 @@ from flask import render_template, url_for
 
 @app.route('/')
 def homepage():
-    return render_template('index.html')
+    usuario = 'Leonardo'
+    idade = 54
+
+    context = {
+        'usuario': usuario,
+        'idade': idade
+    }
+    return render_template('index.html', context=context)
 
 
 @app.route('/sobre')
