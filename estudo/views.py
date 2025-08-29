@@ -47,7 +47,9 @@ def contatoLista():
     contatos = Contato.query.all()
 
     if pesquisa != '':
-        contatos = Contato.query.filter_by(nome=pesquisa).all()
+        contatos = Contato.query.filter(
+            Contato.nome.like('%' + pesquisa + '%')).all()
+        # contatos = Contato.query.filter_by(nome=pesquisa).all()
 
     context = {'contatos': contatos}
     return render_template('contato_lista.html', context=context)
