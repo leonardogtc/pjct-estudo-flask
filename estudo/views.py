@@ -39,28 +39,41 @@ def contato():
     return render_template('contato.html', context=context, form=form)
 
 
+@app.route('/contato/lista')
+def contatoLista():
+    if request.method == 'GET':
+        pesquisa = request.args.get('pesquisa', '')
+
+    contatos = Contato.query.all()
+
+    if pesquisa != '':
+        contatos = Contato.query.filter_by(nome=pesquisa).all()
+
+    context = {'contatos': contatos}
+    return render_template('contato_lista.html', context=context)
+
 # !--- Formato não recomendado ---
-@app.route('/contato_old', methods=['GET', 'POST'])
-def novapage():
-    context = {}
+# @app.route('/contato_old', methods=['GET', 'POST'])
+# def novapage():
+#     context = {}
 
-    # if request.method == 'GET':
-    #     pesquisa = request.args.get('pesquisa')
-    #     context.update({'pesquisa': pesquisa})
-    #     print(pesquisa)
+#     # if request.method == 'GET':
+#     #     pesquisa = request.args.get('pesquisa')
+#     #     context.update({'pesquisa': pesquisa})
+#     #     print(pesquisa)
 
-    if request.method == 'POST':
-        nome = request.form['nome']
-        email = request.form['email']
-        assunto = request.form['assunto']
-        mensagem = request.form['mensagem']
+#     if request.method == 'POST':
+#         nome = request.form['nome']
+#         email = request.form['email']
+#         assunto = request.form['assunto']
+#         mensagem = request.form['mensagem']
 
-        contato = Contato(nome=nome, email=email,
-                          assunto=assunto, mensagem=mensagem)
-        db.session.add(contato)
-        db.session.commit()
+#         contato = Contato(nome=nome, email=email,
+#                           assunto=assunto, mensagem=mensagem)
+#         db.session.add(contato)
+#         db.session.commit()
 
-    return render_template('contato_old.html', context=context)
+#     return render_template('contato_old.html', context=context)
 
 
 if __name__ == '__main__':
