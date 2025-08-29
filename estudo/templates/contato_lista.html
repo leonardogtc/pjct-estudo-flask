@@ -33,30 +33,21 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for linha in context['contatos'] %}
                         <tr>
-                            <th scope="row">{{ context['contatos'][0].nome }}</th>
-                            <td>{{context['contatos'][0].email}}</td>
-                            <td>{{ context['contatos'][0].assunto}}</td>
-                            <td>{{ context['contatos'][0].respondido }}</td>
+                            <th scope="row">{{linha.nome}}</th>
+                            <td>{{linha.email}}</td>
+                            <td>{{ linha.assunto}}</td>
+                            <td>
+                                {% if linha.respondido: %}
+                                sim
+                                {% else %}
+                                não
+                                {% endif %}
+                            </td>
                         </tr>
-                        <tr>
-                            <th scope="row">{{ context['contatos'][1].nome }}</th>
-                            <td>{{context['contatos'][1].email}}</td>
-                            <td>{{ context['contatos'][1].assunto}}</td>
-                            <td>{{ context['contatos'][1].respondido }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">{{ context['contatos'][2].nome }}</th>
-                            <td>{{context['contatos'][2].email}}</td>
-                            <td>{{ context['contatos'][2].assunto}}</td>
-                            <td>{{ context['contatos'][2].respondido }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">{{ context['contatos'][3].nome }}</th>
-                            <td>{{context['contatos'][3].email}}</td>
-                            <td>{{ context['contatos'][3].assunto}}</td>
-                            <td>{{ context['contatos'][3].respondido }}</td>
-                        </tr>
+                        {% endfor %}
+
                     </tbody>
                 </table>
             </div>
